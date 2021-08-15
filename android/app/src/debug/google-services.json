@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "999907880420",
+    "project_id": "interact-b6fc0",
+    "storage_bucket": "interact-b6fc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999907880420:android:0be13e63a51ac8e46babf1",
+        "android_client_info": {
+          "package_name": "com.developerdhairya.interact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999907880420-q1eb6jl577a9mm2ke6non51ecq0v7hmi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy_2mr5nn3rjYYTjXFt9yLY4Cjxuuo5c0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999907880420-q1eb6jl577a9mm2ke6non51ecq0v7hmi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
