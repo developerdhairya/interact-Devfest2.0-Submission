@@ -14,8 +14,8 @@ import 'package:interact/screens/login.dart';
 import 'package:sawo/sawo.dart';
 
 Sawo sawo = Sawo(
-  apiKey: 'c9583439-1cc4-4c6a-9a06-3fd6ba71c746',
-  secretKey: '6117e2a024db1bf9f71823e7MwcvGqbNGF1SxznZXqQT64tw',
+  apiKey: '',
+  secretKey: '',
 );
 
 class AuthenticationScreen extends StatefulWidget {
