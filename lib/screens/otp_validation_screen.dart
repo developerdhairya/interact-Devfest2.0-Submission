@@ -35,7 +35,7 @@ class _OtpValidationScreenState extends State<OtpValidationScreen> {
     otp = currOtp;
     try {
       Mailer mailer = Mailer(
-          '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');
+          '');
       Address toAddress = Address(widget.email);
       Address fromAddress = Address('dhairya0192.be20@chitkara.edu.in');
       Content content = Content('text/plain',
