@@ -5,6 +5,7 @@ import 'package:interact/Navigator.dart';
 import 'package:interact/screens/add_image_screen.dart';
 import 'package:interact/screens/authentication_screen.dart';
 import 'package:interact/screens/chat_screen.dart';
+import 'package:interact/screens/enter_username.dart';
 import 'package:interact/screens/home_screen.dart';
 import 'package:interact/screens/introduction_screen.dart';
 import 'package:interact/screens/login.dart';
@@ -42,7 +43,7 @@ class _INTERACTState extends State<INTERACT> {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/addImageScreen',
+      initialRoute: '/navigationGate',
       routes: {
         '/navigationGate':(context)=> NavigationGate(),
         '/introductionScreen':(context) => IntroductionScreen(),
@@ -53,6 +54,7 @@ class _INTERACTState extends State<INTERACT> {
         '/chatScreen':(context)=>ChatScreen(),
         '/profileScreen':(context)=>ProfileScreen(),
         '/addImageScreen':(context)=>AddImageScreen(),
+        '/enterUsernameScreen':(context)=>EnterUsernameScreen(),
       },
     );
   }

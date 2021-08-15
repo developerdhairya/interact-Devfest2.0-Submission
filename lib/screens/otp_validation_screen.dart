@@ -28,15 +28,16 @@ class _OtpValidationScreenState extends State<OtpValidationScreen> {
   TextEditingController _otpController = TextEditingController();
   late String otp;
   late bool _authenticUser;
+  late bool _canProceed;
 
   void sendOtp() {
     String currOtp = Uuid().v1().substring(0, 5).toString();
     otp = currOtp;
     try {
       Mailer mailer = Mailer(
-          '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');
+          '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');
       Address toAddress = Address(widget.email);
-      Address fromAddress = Address('jain.chirag0174@gmail.com');
+      Address fromAddress = Address('dhairya0192.be20@chitkara.edu.in');
       Content content = Content('text/plain',
           'Thanks for using Interact(A solution built during DevFest 2.0)..Your otp to heaven is $otp');
       String subject = 'Interact Authentication';
@@ -64,10 +65,12 @@ class _OtpValidationScreenState extends State<OtpValidationScreen> {
           'email': widget.email,
           'password': widget.password,
         });
+        _canProceed=true;
       });
     }catch(e){
       SnackBar snackBar = SnackBar(content: Text(e.toString()));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      _canProceed=false;
     }
   }
 
@@ -146,6 +149,9 @@ class _OtpValidationScreenState extends State<OtpValidationScreen> {
                       authenticateUser();
                       if (_authenticUser) {
                         await registerUser();
+                        if(_canProceed){
+                          Navigator.pushNamed(context, "/addImageScreen");
+                        }
                       }
                     } catch (e) {
                       SnackBar snackBar = SnackBar(content: Text(e.toString()));

@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:interact/components/sign_buttons.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:shake/shake.dart';
-
-import '';
 import 'package:flutter/material.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interact/components/chat_bar.dart';
 import 'package:interact/firebase.dart';
+import 'package:interact/sawo.dart';
 import 'package:interact/streams/chat_stream.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -41,7 +42,13 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> getUserDetails() async {
-    DocumentSnapshot userDocMap = await userDocument.get();
+    late DocumentSnapshot userDocMap;
+    if(!sawoEnabled){
+    userDocMap = await userDocument.get();
+    }else{
+    userDocMap = await sawoUserDocument.get();
+
+    }
     setState(() {
       username = userDocMap['username'];
     });

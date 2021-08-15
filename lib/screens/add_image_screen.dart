@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:interact/components/hexagonal_clipper.dart';
-import 'package:interact/components/wave_clipper_1.dart';
-import 'package:interact/components/wave_clipper_2.dart';
-import 'package:interact/firebase.dart';
+import 'package:interact/sawo.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 
 import 'login.dart';
 
@@ -18,8 +19,48 @@ class AddImageScreen extends StatefulWidget {
   _AddImageScreenState createState() => _AddImageScreenState();
 }
 
+
+
 class _AddImageScreenState extends State<AddImageScreen> {
-  Future<void> uploadImage(File upload)async{
+  final picker = ImagePicker();
+  late File _imageFile;
+  String uid="";
+  bool showHud=false;
+
+
+  Future pickImage() async {
+    setState(() {
+      showHud=true;
+    });
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _imageFile = File(pickedFile!.path);
+    });
+
+    uploadFile(pickedFile!.path);
+  }
+  Future<void> uploadFile(String filePath) async {
+    File file = File(filePath);
+
+    try {
+      if(!sawoEnabled){
+        uid=FirebaseAuth.instance.currentUser!.uid;
+      }else{
+        uid=sawoUserId;
+      }
+      await firebase_storage.FirebaseStorage.instance
+          .ref('uploads/$uid.png')
+          .putFile(file).then((x){
+            setState(() {
+              showHud=false;
+            });
+            uid!=""?Navigator.pushNamed(context,'/homeScreen'):ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Network Error.")));
+
+      });
+    } on FirebaseException catch (e) {
+      print(e);
+    }
 
   }
 
@@ -27,7 +68,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
   Widget build(BuildContext context) {
     Size screenSize=MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
+      body: ModalProgressHUD(child: Container(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,19 +84,19 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 height: 55.0,
               ),
               CircleAvatar(
-                // backgroundImage:
-                // AssetImage("assets/profile_img_sample.png"),
-                backgroundImage: ,
+                backgroundImage:
+                AssetImage("assets/profile_img_sample.png"),
+                // backgroundImage: ,
                 radius: 60.0,
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(height: 50.0,),
               InkWell(
-                onTap: (){},
+                onTap: ()async{await pickImage();},
                 child: Container(
 
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.deepPurple,width: 2.0,)
+                      border: Border.all(color: Colors.deepPurple,width: 2.0,)
                   ),
                   // color: Colors.red,
                   width: screenSize.width/1.6,
@@ -71,7 +112,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
             ],
           ),
         ),
-      ),
+      ),inAsyncCall: showHud,),
     );
   }
 }
